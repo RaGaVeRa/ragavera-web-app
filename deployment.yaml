@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ragavera-tts-web-ui
+  labels:
+    app: ragavera-tts-web-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ragavera-tts-web-ui
+  template:
+    metadata:
+      labels:
+        app: ragavera-tts-web-ui
+    spec:
+      containers:
+      - name: ragavera-tts-web-ui
+        image: au.icr.io/ragavera/tts-web-ui:v1.0.0
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+        env:
+        - name: CLOUDANT_URL
+          valueFrom:
+            secretKeyRef:
+              name: cloudant
+              key: url
+              optional: true
+
