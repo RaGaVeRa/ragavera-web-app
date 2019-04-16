@@ -88,10 +88,9 @@ const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
 
 const appEnv = cfenv.getAppEnv(appEnvOpts);
 
+// Load the Cloudant library.
+var Cloudant = require('@cloudant/cloudant');
 if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/[Cc][Ll][Oo][Uu][Dd][Aa][Nn][Tt]/)) {
-  // Load the Cloudant library.
-  var Cloudant = require('@cloudant/cloudant');
-
   // Initialize database with credentials
   if (appEnv.services['cloudantNoSQLDB']) {
     // CF service named 'cloudantNoSQLDB'
@@ -103,6 +102,7 @@ if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/[Cc][Ll][Oo][Uu][Dd
 } else if (process.env.CLOUDANT_URL){
   cloudant = Cloudant(process.env.CLOUDANT_URL);
 }
+
 if(cloudant) {
   //database name
   dbName = 'mydb';
@@ -119,7 +119,6 @@ if(cloudant) {
 
 //serve static file (index.html, images, css)
 app.use(express.static(__dirname + '/views'));
-
 
 var port = process.env.PORT || 3000
 app.listen(port, function() {
