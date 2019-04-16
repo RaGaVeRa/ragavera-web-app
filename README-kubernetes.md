@@ -5,8 +5,8 @@ Follow these instructions to deploy this application to a Kubernetes cluster and
 ## Download
 
 ```bash
-git clone https://github.com/IBM-Cloud/get-started-node
-cd get-started-node
+git clone https://github.com/RaGaVeRa/tts-web-ui
+cd tts-web-ui
 ```
 
 ## Build Docker Image
@@ -18,14 +18,14 @@ cd get-started-node
 3. Build and tag (`-t`)the docker image by running the command below replacing REGISTRY and NAMESPACE with he appropriate values.
 
    ```sh
-   docker build . -t <REGISTRY>/<NAMESPACE>/myapp:v1.0.0
+   docker build . -t <REGISTRY>/<NAMESPACE>/tts-web-ui:v1.0.0
    ```
-   Example: `docker build . -t registry.ng.bluemix.net/mynamespace/myapp:v1.0.0`
+   Example: `docker build . -t au.icr.io/ragavera/tts-web-ui:v1.0.0`
 
 4. Push the docker image to your Container Registry on IBM Cloud
 
    ```sh
-   docker push <REGISTRY>/<NAMESPACE>/myapp:v1.0.0
+   docker push <REGISTRY>/<NAMESPACE>/tts-web-ui:v1.0.0
    ```
 
 ## Deploy
@@ -50,7 +50,7 @@ kubectl create secret generic cloudant --from-literal=url=<URL>
 ```
 Example:
 ```bash
-kubectl create secret generic cloudant --from-literal=url=https://username:passw0rdf@username-bluemix.cloudant.com
+kubectl create secret generic cloudant --from-literal=url=https://username:passw0rdf@username-bluemix.cloudantnosqldb.appdomain.cloud
 ```
 
 #### Create the deployment
@@ -58,16 +58,16 @@ kubectl create secret generic cloudant --from-literal=url=https://username:passw
 1. Replace `<REGISTRY>` and `<NAMESPACE>` with the appropriate values in `kubernetes/deployment.yaml`
 2. Create a deployment:
   ```shell
-  kubectl create -f kubernetes/deployment.yaml
+  kubectl create -f deployment.yaml
   ```
 - **Paid Cluster**: Expose the service using an External IP and Loadbalancer
   ```
-  kubectl expose deployment get-started-node --type LoadBalancer --port 8080 --target-port 8080
+  kubectl expose deployment ragavera-tts-web-ui --type LoadBalancer --port 8080 --target-port 8080
   ```
 
 - **Free Cluster**: Use the Worker IP and NodePort
   ```bash
-  kubectl expose deployment get-started-node --type NodePort --port 8080 --target-port 8080
+  kubectl expose deployment ragavera-tts-web-ui --type NodePort --port 8080 --target-port 8080
   ```
 
 ### Access the application
@@ -75,23 +75,23 @@ kubectl create secret generic cloudant --from-literal=url=https://username:passw
 Verify **STATUS** of pod is `RUNNING`
 
 ```shell
-kubectl get pods -l app=get-started-node
+kubectl get pods -l app=ragavera-tts-web-ui
 ```
 
 **Standard (Paid) Cluster:**
 
-1. Identify your LoadBalancer Ingress IP using `kubectl get service get-started-node`
+1. Identify your LoadBalancer Ingress IP using `kubectl get service ragavera-tts-web-ui`
 2. Access your application at t `http://<EXTERNAL-IP>:8080/`
 
 **Free Cluster:**
 
 1. Identify your Worker Public IP using `ibmcloud cs workers YOUR_CLUSTER_NAME`
-2. Identify the Node Port using `kubectl describe service get-started-node`
+2. Identify the Node Port using `kubectl describe service ragavera-tts-web-ui`
 3. Access your application at `http://<WORKER-PUBLIC-IP>:<NODE-PORT>/`
 
 
 ## Clean Up
 ```bash
-kubectl delete deployment,service -l app=get-started-node
+kubectl delete deployment,service -l app=ragavera-tts-web-ui
 kubectl delete secret cloudant
 ```
