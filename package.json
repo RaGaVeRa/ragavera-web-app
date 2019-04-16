@@ -1,7 +1,7 @@
 {
-  "name": "ragavera-tts-ui",
+  "name": "ragavera-web-app",
   "main": "server.js",
-  "description": "RaGaVeRa Text to Speech - Web UI for SaaS offering",
+  "description": "RaGaVeRa Web UI for SaaS offering",
   "version": "0.1.1",
   "private": false,
   "engines": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/RaGaVeRa/ragavera-tts-ui"
+    "url": "https://github.com/RaGaVeRa/ragavera-web-app"
   },
   "dependencies": {
     "@cloudant/cloudant": "^3.0.2",

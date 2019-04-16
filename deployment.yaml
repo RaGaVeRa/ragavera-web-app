@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ragavera-tts-web-ui
+  name: ragavera-web-app
   labels:
-    app: ragavera-tts-web-ui
+    app: ragavera-web-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ragavera-tts-web-ui
+      app: ragavera-web-app
   template:
     metadata:
       labels:
-        app: ragavera-tts-web-ui
+        app: ragavera-web-app
     spec:
       containers:
-      - name: ragavera-tts-web-ui
-        image: au.icr.io/ragavera/tts-web-ui:v1.0.0
+      - name: ragavera-web-app
+        image: au.icr.io/ragavera/ragavera-web-app:v1.0.0
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
