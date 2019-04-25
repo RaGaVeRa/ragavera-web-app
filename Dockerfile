@@ -10,7 +10,7 @@ COPY --from=builder /angular-src/dist/ragavera-web-ui /app/views
 COPY package.json /app
 COPY server.js /app
 
-RUN cd /app; npm install
+RUN cd /app && npm install
 
 ENV NODE_ENV production
 ENV PORT 8080
