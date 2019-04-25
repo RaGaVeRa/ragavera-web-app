@@ -1,3 +1,4 @@
+# https://www.whitehorses.nl/blog/running-angular-application-docker-dummies
 FROM node:8-alpine AS builder
 COPY ragavera-web-ui /angular-src
 WORKDIR /angular-src
