@@ -1,8 +1,13 @@
-FROM node:6-alpine
+FROM node:8-alpine AS builder
+COPY ragavera-web-ui /angular-src
+WORKDIR /angular-src
+RUN npm i
+RUN $(npm bin)/ng build --prod
 
-ADD views /app/views
-ADD package.json /app
-ADD server.js /app
+FROM node:6-alpine
+COPY --from=builder /angular-src/dist/ragavera-web-ui /app/views
+COPY package.json /app
+COPY server.js /app
 
 RUN cd /app; npm install
 
