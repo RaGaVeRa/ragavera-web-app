@@ -119,6 +119,8 @@ if(cloudant) {
 
 //serve static file (index.html, images, css)
 app.use(express.static(__dirname + '/views'));
+app.use('/tts', express.static(__dirname + '/views'));
+app.use('/ocr', express.static(__dirname + '/views'));
 
 var port = process.env.PORT || 3000
 app.listen(port, function() {
